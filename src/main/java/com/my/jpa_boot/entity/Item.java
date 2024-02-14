@@ -1,8 +1,6 @@
 package com.my.jpa_boot.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,29 +19,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
+
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name="user")
-public class User {
+@Builder
+@Table(name="item")
+@ToString(exclude = "user")
+public class Item {
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_idx", insertable = false, updatable = false)
-	private Long userIdx;
+	@Column(name="item_idx")
+	private Long itemIdx;
 	
 	
-	@Column(name="id")
-	private String id;
+	@Column(name="user_idx",insertable = false, updatable = false)
+	private String userIdx;
 	
 	
-	@Column(name="pw")
-	private String pw;
-	
+	@Column(name="name")
+	private String name;
 	
 	
 	@Column(name="created_date")
@@ -50,9 +51,11 @@ public class User {
 	
 	
 	
-	@OneToMany(mappedBy = "user",fetch=FetchType.LAZY)
-    private List<Item> items = new ArrayList<>();
-
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "user_idx")
+	private User user;
+	
 	
 	
 	
