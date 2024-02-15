@@ -2,6 +2,7 @@ package com.my.jpa_boot.controller;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,40 @@ public class UserController {
 	UserService userService;
 	
 	
+	@GetMapping("delete")
+	public String delete(
+				@RequestParam(value="user_idx") Long user_idx
+			) {
+		
+		userService.delete(user_idx);
+		
+		return "ok";
+		
+	}
+	
+	
+	@GetMapping("changePw")
+	public String changePw(
+				@RequestParam(value="user_idx") Long user_idx,
+				@RequestParam(value="new_pw") String pw
+			
+			) {
+		
+		
+		User user = User.builder()
+						.userIdx(user_idx)
+						.pw(pw)
+						.build();
+		
+		userService.updatePw(user);
+		
+		
+		
+		return "ok";
+	}
+	
+	
+	
 	
 	@GetMapping("create")
 	public String create(
@@ -34,7 +69,7 @@ public class UserController {
 		//빌더 함수 사용
 		User user = User.builder()
 						.id(id)
-						.pw(DigestUtils.md5Hex(pw))
+						.pw(DigestUtils.md5Hex(pw)) //md5 암호화 처리 (단방향 암호화)
 						.createdDate(LocalDateTime.now())
 						.build();
 		
@@ -49,13 +84,19 @@ public class UserController {
 				@RequestParam(value="user_idx") Long userIdx
 			){
 		
-		Optional<User> op = userService.findByUserIdx(userIdx);
+		 Optional<User> op = userService.findByUserIdx(userIdx);
 		
-		if(op.isEmpty()) {
-			return null;
-		}else {
-			return op.get();
-		} 
+		
+		
+			
+		
+		  
+		  userService.findByUserIdx(userIdx).stream().forEach(u->{
+			  System.out.println(u);
+		  });
+		 
+		    
+		  return new User();
 		
 	}
 	

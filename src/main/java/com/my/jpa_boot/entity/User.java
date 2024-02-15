@@ -1,7 +1,6 @@
 package com.my.jpa_boot.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Table(name="user")
+
 public class User {
 	
 	
@@ -49,10 +51,12 @@ public class User {
 	private LocalDateTime createdDate;
 	
 	
-	
-	@OneToMany(mappedBy = "user",fetch=FetchType.LAZY)
-    private List<Item> items = new ArrayList<>();
+	//1 : N
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Item> items;
 
+	
+	
 	
 	
 	

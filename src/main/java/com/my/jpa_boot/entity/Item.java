@@ -28,7 +28,7 @@ import lombok.ToString;
 @Getter
 @Builder
 @Table(name="item")
-@ToString(exclude = "user")
+@ToString(exclude = {"user"})
 public class Item {
 	
 	
@@ -52,9 +52,13 @@ public class Item {
 	
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user_idx")
+	@ManyToOne()  
+	@JoinColumn(name="user_idx")
 	private User user;
+	 
+	  
+	  
+	 
 	
 	
 	
