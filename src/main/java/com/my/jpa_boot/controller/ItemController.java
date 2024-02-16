@@ -2,13 +2,12 @@ package com.my.jpa_boot.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.jpa_boot.entity.Item;
@@ -27,7 +26,7 @@ public class ItemController {
 	
 	
 	@GetMapping("getByName")
-	public Item getByName(
+	public List<Item> getByName(
 				@RequestParam(value="name") String name
 			){
 		
@@ -36,11 +35,8 @@ public class ItemController {
 		List<Item> list = itemService.findByName(name);
 		
 		
+		return list;
 		
-		System.out.println(list.get(0));
-		
-		
-		return list.get(0);
 	}
 	
 	
