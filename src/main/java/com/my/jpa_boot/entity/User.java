@@ -29,7 +29,7 @@ import lombok.ToString;
 @Getter
 @Table(name="user")
 
-public class User {
+public class User extends BaseEntity{
 	
 	
 	@Id
@@ -47,9 +47,7 @@ public class User {
 	
 	
 	
-	@Column(name="created_date")
-	private LocalDateTime createdDate;
-	
+
 	
 	//1 : N
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)

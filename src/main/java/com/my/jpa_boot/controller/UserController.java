@@ -70,13 +70,14 @@ public class UserController {
 		User user = User.builder()
 						.id(id)
 						.pw(DigestUtils.md5Hex(pw)) //md5 암호화 처리 (단방향 암호화)
-						.createdDate(LocalDateTime.now())
 						.build();
 		
 		userService.save(user);
 		
 		return "ok";
 	}
+	
+	
 	
 	
 	@GetMapping("get")
