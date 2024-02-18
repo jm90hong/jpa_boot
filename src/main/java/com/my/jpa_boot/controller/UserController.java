@@ -1,10 +1,10 @@
 package com.my.jpa_boot.controller;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,19 @@ import com.my.jpa_boot.service.UserService;
 @RequestMapping(value="user")
 public class UserController {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	UserService userService;
 	
+	
+	@GetMapping("log")
+	public String log() {
+		
+		logger.info("info");
+		
+		return "ok";
+	}
 	
 	@GetMapping("delete")
 	public String delete(
