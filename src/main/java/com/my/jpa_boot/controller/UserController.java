@@ -18,19 +18,13 @@ import com.my.jpa_boot.service.UserService;
 @RequestMapping(value="user")
 public class UserController {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	
 	@Autowired
 	UserService userService;
 	
 	
-	@GetMapping("log")
-	public String log() {
-		
-		logger.info("info");
-		
-		return "ok";
-	}
+	
 	
 	@GetMapping("delete")
 	public String delete(
