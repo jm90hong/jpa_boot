@@ -5,7 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,16 +32,23 @@ public class Post extends BaseEntity{
 	@Column(name="post_idx", insertable = false, updatable = false)
 	private Long postIdx;
 	
-	@Column(name="board_idx")
-	private Long boardIdx;
-	
-	@Column(name="user_idx")
-	private Long userIdx;
-	
 	
 	@Column(name="title")
 	private String title;
 	
 	@Column(name="content")
 	private String content;
+	
+	@ManyToOne()
+	@JsonBackReference
+	@JoinColumn(name="board_idx")
+	private Board board;
+	
+	
+	@OneToOne()
+	@JsonBackReference
+	@JoinColumn(name="user_idx")
+    private User user;
+	
 }
+//https://unluckyjung.github.io/dev/2021/11/20/Dto-Entity-Mapper/

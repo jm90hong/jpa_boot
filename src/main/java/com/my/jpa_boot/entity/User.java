@@ -9,7 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,12 +46,14 @@ public class User extends BaseEntity{
 	
 	
 	
-
-	
 	//1 : N
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Item> items;
 
+	@JsonManagedReference
+	@OneToOne(mappedBy = "user",fetch = FetchType.LAZY)  
+	private Post post;
 
 
 
