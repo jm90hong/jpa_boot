@@ -42,7 +42,4 @@ public class Board extends BaseEntity{
 	@OneToMany(mappedBy = "board",fetch = FetchType.LAZY)
     private List<Post> posts;
 	
-	
-	
-	
 }

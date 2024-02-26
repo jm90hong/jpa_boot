@@ -23,7 +23,16 @@ public class ItemController {
 	
 	
 	
-	
+	@GetMapping("delete")
+	public String delete(
+				@RequestParam(value="item_idx") Long item_idx
+			) {
+		
+		
+		itemService.delete(item_idx);
+		
+		return "ok";
+	}
 	
 	@GetMapping("getByName")
 	public List<Item> getByName(

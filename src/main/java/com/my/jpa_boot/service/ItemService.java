@@ -16,7 +16,9 @@ public class ItemService {
 	ItemRepository itemRepository;
 	
 	
-	
+	public void delete(Long item_idx) {
+		itemRepository.deleteById(item_idx);
+	}
 	
 	public List<Item> findByName(String name) {
 		return itemRepository.findByName(name);
